@@ -109,6 +109,7 @@ fn run_client(
 ) -> Result<(), ::std::io::Error> {
     let mut c = client::TestClient::new(host, port)?;
 
+    /*
     print!("Testing ping... ");
     stdout().flush()?;
     println!("done, {:.*} ms", 2, c.test_ping(20)?);
@@ -119,6 +120,7 @@ fn run_client(
         "done, {}",
         format_speed(c.test_downstream(time * 1_000u64)?)
     );
+    */
 
     print!("Testing upload... ");
     stdout().flush()?;
