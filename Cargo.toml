@@ -12,3 +12,5 @@ edition = "2018"
 time = "0.1"
 byteorder = "0.5"
 getopts = "0.2"
+digest = "0.10"
+blake2 = { version = "0.10.4", default-features = false }

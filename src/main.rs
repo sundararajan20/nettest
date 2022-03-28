@@ -19,6 +19,7 @@ fn main() {
 
     opts.optflag("h", "help", "Shows this text");
     opts.optflag("s", "server", "Launches a server");
+    opts.optflag("m", "mac", "Whether to MAC packets or not at the server");
     opts.optopt("c", "client", "connects to a server", "SERVER_IP");
     opts.optopt(
         "t",
@@ -64,7 +65,11 @@ fn main() {
         let bind = matches
             .opt_str("b")
             .unwrap_or_else(|| "0.0.0.0".to_string());
-        launch_server(port, &bind);
+        if matches.opt_present("m") {
+            launch_server(port, &bind, true);
+        } else {
+            launch_server(port, &bind, false);
+        }
     }
 
     if matches.opt_present("c") {
@@ -122,9 +127,9 @@ fn run_client(
     Ok(())
 }
 
-fn launch_server(port: u16, listen: &str) {
-    println!("Listening...");
-    let s = server::TestServer::new(port, listen);
+fn launch_server(port: u16, listen: &str, should_mac: bool) {
+    println!("Listening with should_mac={}...", should_mac);
+    let s = server::TestServer::new(port, listen, should_mac);
     s.listen();
 }
 
